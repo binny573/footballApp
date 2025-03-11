@@ -9,7 +9,7 @@ import com.footballapp.footballapp.entity.Player;
 
 public interface PlayerService {
 	
-	public List<Player> getRoster();
+	public List<Player> getPlayers();
 	
 	public Player getPlayer(long jerseyNo);
 	

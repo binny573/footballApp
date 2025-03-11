@@ -14,12 +14,27 @@ public class StaffServiceImpl implements StaffService {
 
 	@Autowired
 	private StaffDao staffDao;
-	
+
 	@Override
 	public List<Staff> getStaff() {
 		// TODO Auto-generated method stub
 		//staffDao.findAll();
-		return staffDao.findAll();
+		System.out.println("Inside Staff Service Implementation " + this.staffDao.findAll().size());
+		List<Staff> staff = this.staffDao.findAll();
+		return staff;
 	}
-
+	@Override
+	public Staff getStaffById(int id)
+	{
+		Staff staff = new Staff();
+		try{
+			staff = staffDao.findById(id);
+			return staff;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception in getStaffById " + e );
+			return staff;
+		}
+	}
 }

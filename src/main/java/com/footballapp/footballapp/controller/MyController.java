@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.footballapp.footballapp.dao.StaffDao;
 import com.footballapp.footballapp.entity.Player;
 import com.footballapp.footballapp.entity.Staff;
 import com.footballapp.footballapp.services.PlayerService;
@@ -24,7 +23,7 @@ import com.footballapp.footballapp.services.StaffService;
 public class MyController {
 	
 	@Autowired
-	private PlayerService rosterservice;
+	private PlayerService playerService;
 	
 	@Autowired
 	private StaffService staffservice;
@@ -35,9 +34,10 @@ public class MyController {
 	}
 	
 	@GetMapping("/roster")
-	public List<Player> getRoster() 
+	public List<Player> getPlayers() 
 	{
-		return this.rosterservice.getRoster();
+		System.out.println("Inside controller");
+		return playerService.getPlayers();
 	}
 	
 	@GetMapping("/staff")
@@ -46,13 +46,23 @@ public class MyController {
 		return this.staffservice.getStaff();
 	}
 	
+	@GetMapping("/staff/{staffId}")
+	public ResponseEntity<Staff> getStaffById(@PathVariable int staffId)
+	{
+		// Staff staff = new Staff();
+		System.out.println("StaffById: " + staffId);
+		System.out.println("Inside getStaffById: " + this.staffservice.getStaffById(staffId));
+		return ResponseEntity.ok(this.staffservice.getStaffById(staffId));
+			// return ResponseEntity.ok(this.staffservice.getStaffById(staffId));
+	}
+
 //	@RequestMapping(path= "/courses", method = RequestMethod.GET) --- Use this with MVC, below is Rest approach, less lengthy.  
 	@GetMapping("/roster/{jerseyNo}")
 	public Player getPlayer(@PathVariable String jerseyNo)
 	{
 		try {
 			System.out.println("Does the request even come here??");
-			return this.rosterservice.getPlayer(Long.parseLong(jerseyNo));			
+			return this.playerService.getPlayer(Long.parseLong(jerseyNo));			
 		}
 		catch(Exception e) {
 			Player p = new Player();
@@ -69,7 +79,7 @@ public class MyController {
 	@PostMapping("/roster")
 	public Player addPlayer(@RequestBody Player player) 
 	{
-		return this.rosterservice.addPlayer(player);
+		return this.playerService.addPlayer(player);
 	}
 	
 	
@@ -77,13 +87,13 @@ public class MyController {
 	@PutMapping("/roster")
 	public Player updatePlayer(@RequestBody Player player)
 	{
-		return this.rosterservice.updatePlayer(player);
+		return this.playerService.updatePlayer(player);
 	}
 	
 	@DeleteMapping("/roster/{jerseyNo}")
 	public ResponseEntity<HttpStatus> deletePlayerProfile(@PathVariable String jerseyNo){
 		try {
-		this.rosterservice.deletePlayerProfile(Long.parseLong(jerseyNo));
+		this.playerService.deletePlayerProfile(Long.parseLong(jerseyNo));
 		return new ResponseEntity<>(HttpStatus.OK);
 		}
 		catch (Exception e) {

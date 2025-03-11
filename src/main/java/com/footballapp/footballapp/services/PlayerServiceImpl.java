@@ -20,7 +20,7 @@ public class PlayerServiceImpl implements PlayerService {
 
 //	List<Player> list;
 	// dependency inject kar de
-	@Autowired 
+	@Autowired
 	private PlayerDao playerDao;
 	
 	public PlayerServiceImpl() {
@@ -32,11 +32,11 @@ public class PlayerServiceImpl implements PlayerService {
 //		list.add(new Player(4, "Ben White", 210, 7, 180));
 //		list.add(new Player(32, "Aaron Ramsdale", 250, 0, 130)); 
 	}
-	
-	@Override
-	public List<Player> getRoster() {
+
+	public List<Player> getPlayers() {
 		// TODO Auto-generated method stub
 //		return list;
+		System.out.println("Inside Player Service Implementation" + this.playerDao.findAll());
 		return playerDao.findAll();
 	}
 
@@ -48,7 +48,7 @@ public class PlayerServiceImpl implements PlayerService {
 //		for (Player player : list) {
 //			{
 //				if(player.getJerseyNo()==jerseyNo) {
-//				 p = player;	
+//				 p = player;
 //				}
 //			}
 //		}
@@ -86,10 +86,10 @@ public class PlayerServiceImpl implements PlayerService {
 //			}
 //		});
 //		return player;
-		
+
 		playerDao.save(player);
 		return player;
-		
+
 	}
 
 	@Override
@@ -99,6 +99,6 @@ public class PlayerServiceImpl implements PlayerService {
 		Player entity = playerDao.getOne((int) parseLong); 
 //		playerDao.deleteById(parseLong);Failed
 		playerDao.delete(entity);
-		
+
 	}
 }

@@ -9,4 +9,6 @@ public interface StaffService {
 
 	public List<Staff> getStaff();
 
+	public Staff getStaffById(int id);
+
 }
