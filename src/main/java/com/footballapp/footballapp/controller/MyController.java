@@ -33,7 +33,7 @@ public class MyController {
 		return "Hell yeah22";
 	}
 	
-	@GetMapping("/roster")
+	@GetMapping("/players")
 	public List<Player> getPlayers() 
 	{
 		System.out.println("Inside controller");
@@ -57,12 +57,12 @@ public class MyController {
 	}
 
 //	@RequestMapping(path= "/courses", method = RequestMethod.GET) --- Use this with MVC, below is Rest approach, less lengthy.  
-	@GetMapping("/roster/{jerseyNo}")
+	@GetMapping("/players/{jerseyNo}")
 	public Player getPlayer(@PathVariable String jerseyNo)
 	{
 		try {
 			System.out.println("Does the request even come here??");
-			return this.playerService.getPlayer(Long.parseLong(jerseyNo));			
+			return this.playerService.getPlayer(Long.parseLong(jerseyNo));
 		}
 		catch(Exception e) {
 			Player p = new Player();
@@ -72,25 +72,21 @@ public class MyController {
 //			p.setGoals(0);
 //			p.setWageInPounds(0);
 			return p;
-			
+
 		}
 	}
-	
-	@PostMapping("/roster")
+	@PostMapping("/players")
 	public Player addPlayer(@RequestBody Player player) 
 	{
 		return this.playerService.addPlayer(player);
 	}
-	
-	
 	//Same put and post, need to make distinct
-	@PutMapping("/roster")
+	@PutMapping("/players")
 	public Player updatePlayer(@RequestBody Player player)
 	{
 		return this.playerService.updatePlayer(player);
 	}
-	
-	@DeleteMapping("/roster/{jerseyNo}")
+	@DeleteMapping("/players/{jerseyNo}")
 	public ResponseEntity<HttpStatus> deletePlayerProfile(@PathVariable String jerseyNo){
 		try {
 		this.playerService.deletePlayerProfile(Long.parseLong(jerseyNo));
@@ -99,8 +95,6 @@ public class MyController {
 		catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	
 	}
-	
 }
 
