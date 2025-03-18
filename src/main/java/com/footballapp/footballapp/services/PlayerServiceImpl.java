@@ -37,12 +37,7 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public List<PlayerDTO> getAllPlayers() {
 		List <Player> players = playerDao.findAll();
-		List<PlayerDTO> playerDTOs = new ArrayList<>();
-		for (Player player : players) {
-			playerDTOs.add(convertToDto(player));
-		}
-		System.out.println("Inside Player Service Implementation" + playerDTOs.get(0));
-		return playerDTOs;
+		return players.stream().map(this::convertToDto).collect(Collectors.toList());
 	}
 
 	@SuppressWarnings("deprecation")
