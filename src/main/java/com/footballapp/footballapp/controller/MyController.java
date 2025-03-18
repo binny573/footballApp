@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import com.footballapp.footballapp.entity.Player;
 import com.footballapp.footballapp.entity.Staff;
 import com.footballapp.footballapp.services.PlayerService;
 import com.footballapp.footballapp.services.StaffService;
+
+import com.footballapp.footballapp.dto.PlayerDTO;
 
 
 @RestController
@@ -34,10 +37,9 @@ public class MyController {
 	}
 	
 	@GetMapping("/players")
-	public List<Player> getPlayers() 
+	public ResponseEntity<List<PlayerDTO>> getPlayers()
 	{
-		System.out.println("Inside controller");
-		return playerService.getPlayers();
+		return  new ResponseEntity<List<PlayerDTO>>(this.playerService.getAllPlayers(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/staff")

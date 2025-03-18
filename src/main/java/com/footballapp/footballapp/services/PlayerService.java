@@ -6,10 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.footballapp.footballapp.entity.Player;
+import com.footballapp.footballapp.dto.PlayerDTO;
 
 public interface PlayerService {
 	
-	public List<Player> getPlayers();
+	public List<PlayerDTO> getAllPlayers();
 	
 	public Player getPlayer(long jerseyNo);
 	

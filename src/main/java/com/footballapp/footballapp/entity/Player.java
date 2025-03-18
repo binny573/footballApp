@@ -43,10 +43,10 @@ public class Player {
 		this.teamid = teamid;
 	}
 
-	public String getfullname() {
+	public String getFullName() {
 		return fullname;
 	}
-	public void setfullname(String fullname) {
+	public void setFullName(String fullname) {
 		this.fullname = fullname;
 	}
 	public Integer getAppearances() {

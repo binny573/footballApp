@@ -14,6 +14,7 @@ import com.footballapp.footballapp.dao.PlayerDao;
 import com.footballapp.footballapp.entity.Player;
 
 import com.footballapp.footballapp.services.*;
+import com.footballapp.footballapp.dto.PlayerDTO;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -22,7 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
 	// dependency inject kar de
 	@Autowired
 	private PlayerDao playerDao;
-	
+
 	public PlayerServiceImpl() {
 //		list = new ArrayList<>();
 //		list.add(new Player(7, "Bukayo Saka", 255, 80, 200));
@@ -33,11 +34,15 @@ public class PlayerServiceImpl implements PlayerService {
 //		list.add(new Player(32, "Aaron Ramsdale", 250, 0, 130)); 
 	}
 
-	public List<Player> getPlayers() {
-		// TODO Auto-generated method stub
-//		return list;
-		System.out.println("Inside Player Service Implementation" + this.playerDao.findAll());
-		return playerDao.findAll();
+	@Override
+	public List<PlayerDTO> getAllPlayers() {
+		List <Player> players = playerDao.findAll();
+		List<PlayerDTO> playerDTOs = new ArrayList<>();
+		for (Player player : players) {
+			playerDTOs.add(convertToDto(player));
+		}
+		System.out.println("Inside Player Service Implementation" + playerDTOs.get(0));
+		return playerDTOs;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -61,7 +66,6 @@ public class PlayerServiceImpl implements PlayerService {
 //			return p;
 //		}
 //		return p;
-	
 		return playerDao.findById((int) jerseyNo).get();
 //	return playerDao.getOne((int) jerseyNo); --Deprecated so avoid
 	}
@@ -76,17 +80,6 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Override
 	public Player updatePlayer(Player player) {
-		// TODO Auto-generated method stub
-//		list.forEach(e -> {
-//			if (e.getJerseyNo()==player.getJerseyNo() ) {
-//				e.setAppearances(player.getAppearances());
-//				e.setFullName(player.getFullName());
-//				e.setGoals(player.getGoals());
-//				e.setWageInPounds(player.getWageInPounds());
-//			}
-//		});
-//		return player;
-
 		playerDao.save(player);
 		return player;
 
@@ -99,6 +92,15 @@ public class PlayerServiceImpl implements PlayerService {
 		Player entity = playerDao.getOne((int) parseLong); 
 //		playerDao.deleteById(parseLong);Failed
 		playerDao.delete(entity);
+	}
 
+	public PlayerDTO convertToDto(Player player){
+		System.out.println("Here are the players in the list " + player.getFullName());
+		return new PlayerDTO(
+			player.getJerseyNo(),
+			player.getFullName(),
+			player.getAppearances(),
+			player.getGoals()
+		);
 	}
 }
