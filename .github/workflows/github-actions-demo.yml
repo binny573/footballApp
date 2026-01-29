@@ -19,4 +19,4 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: echo "Let us see what can be done"
       - run: pwd
-      - run: mvn spring-boot:run
+      
