@@ -19,7 +19,6 @@ import com.footballapp.footballapp.dto.PlayerDTO;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-//	List<Player> list;
 	// dependency inject kar de
 	@Autowired
 	private PlayerDao playerDao;
@@ -38,7 +37,6 @@ public class PlayerServiceImpl implements PlayerService {
 	public Player getPlayer(long jerseyNo) {
 		// TODO Auto-generated method stub
 		return playerDao.findById((int) jerseyNo).get();
-//	return playerDao.getOne((int) jerseyNo); --Deprecated so avoid
 	}
 
 	@Override
